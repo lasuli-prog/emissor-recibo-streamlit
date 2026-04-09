@@ -13,22 +13,34 @@ nome = st.text_input("Nome do Cliente")
 cpf = st.text_input("CPF/CNPJ")
 valor = st.number_input("Valor (R$)", min_value=0.0, format="%.2f")
 descricao = st.text_area("Descrição do Serviço")
+forma_pagamento = st.selectbox(
+  "Forma de pagamento",
+  ["Dinheiro", "Cartão", "Pix", "Boleto"]
+)
 cidade = st.text_input("Cidade")
 data = st.date_input("Data", datetime.today())
 
-def gerar_pdf(nome, cpf, valor, descricao, cidade, data):
+def gerar_pdf(nome, cpf, valor, descricao, cidade, data, forma_pagamento):
   file_name = "recibo.pdf"
   c = canvas.Canvas(file_name, pagesize=letter)
   width, height = letter 
   c.setFont("Helvetica-Bold", 16)
   c.drawString(250, height - 50, "RECIBO")
+  c.setFont("Helvetica", 12)
+  y = height - 80
+  from reportlab.lib.utils import simpleSplit
+  texto_nome = f"Recebi de: {nome}"
+  linhas = simpleSplit(texto_nome, "Helvetica", 12, 500)
+  for linha in linhas:
+    c.drawString(50, y, linha)
+    y -= 20
   texto = [
-    f"Recebi de: {nome}",
     f"CPF/CNPJ: {cpf}",
     "",
     f"A importância de: R$ {valor:.2f}",
     "",
     f"Referente a: {descricao}",
+    f"Forma de pagamento: {forma_pagamento}",
     "",
     f"{cidade}, {data.strftime('%d/%m/%Y')}",
     "",
@@ -36,7 +48,6 @@ def gerar_pdf(nome, cpf, valor, descricao, cidade, data):
     "______________________________",
     "Assinatura"
   ]
-  y = height - 50
   for linha in texto:
     c.drawString(50, y, linha)
     y -= 20
@@ -45,7 +56,7 @@ def gerar_pdf(nome, cpf, valor, descricao, cidade, data):
 
 if st.button("Gerar Recibo"):
   if nome and valor and descricao:
-    pdf = gerar_pdf(nome, cpf, valor, descricao, cidade, data)
+    pdf = gerar_pdf(nome, cpf, valor, descricao, cidade, data, forma_pagamento)
     with open(pdf, "rb") as f:
       st.download_button(
         "Baixar Recibo",
