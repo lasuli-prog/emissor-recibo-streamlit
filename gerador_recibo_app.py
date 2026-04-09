@@ -5,7 +5,7 @@ from datetime import datetime, date
 import os 
 
 st.set_page_config(page_title="Emissor de Recibos", page_icon="🧾")
-st.title("🧾 Emissor de Recibos"
+st.title("Emissor de Recibos"
 
 st.subheader("Preencha os dados do recibo")
 
