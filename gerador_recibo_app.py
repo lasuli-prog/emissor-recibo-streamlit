@@ -54,4 +54,4 @@ if st.button("Gerar Recibo"):
         mime="application/pdf"
       )
   else:
-    st.warning("Preencha pelo menos nome, valor e descrição."
+    st.warning("Preencha pelo menos nome, valor e descrição.")
