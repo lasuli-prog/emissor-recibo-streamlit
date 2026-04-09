@@ -11,7 +11,7 @@ st.subheader("Preencha os dados do recibo")
 
 nome = st.text_input("Nome do Cliente")
 cpf = st.text_input("CPF/CNPJ")
-valor = st.number_input("Valor (R$), min_value=0.0, format="%.2f")
+valor = st.number_input("Valor (R$)", min_value=0.0, format="%.2f")
 descricao = st.text_area("Descrição do Serviço")
 cidade = st.text_input("Cidade")
 data = st.date_input("Data", datetime.today())
