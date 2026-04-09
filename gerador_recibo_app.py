@@ -28,7 +28,7 @@ def gerar_pdf(nome, cpf, valor, descricao, cidade, data):
     "",
     f"A importância de: R$ {valor:.2f}",
     "",
-    f"Referente a: {descrição}",
+    f"Referente a: {descricao}",
     "",
     f"{cidade}, {data.strftime('%d/%m/%Y')}",
     "",
